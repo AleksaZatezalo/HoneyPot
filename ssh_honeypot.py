@@ -11,6 +11,9 @@ import paramiko
 
 # Constants
 logging_format = logging.Formatter('%(message)s')
+SSH_BANNER = "SSH-2.0-MySSHServer_1.0"
+
+host_key = 'server.key'
 
 # Loggers and Logging Files
 funnel_logger = logging.getLogger('FunnelLogger')
@@ -89,4 +92,20 @@ class Server(paramiko.ServerInterface):
         command = str(command)
         return True
 
+def client_handle(client, addr, username, password):
+    client_ip = addr[0]
+    print(f"{client_ip} has connected to the server.")
+
+    try:
+        transport = paramiko.Transport()
+        transport.local_version = SSH_BANNER
+        server = Server(client_ip=client_ip, input_username=username, input_password=password)
+
+        transport.add_server_key(host_key)
+        transport.start_client(server=server)
+
+    except:
+        pass
+    finally:
+        pass
 # Provisioning SSH Based Honeypot
