@@ -8,6 +8,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import socket
 import paramiko
+import threading
 
 # Constants
 logging_format = logging.Formatter('%(message)s')
@@ -30,6 +31,7 @@ creds_logger.addHandler(creds_handler)
 
 # Emulated Shell
 def emulated_shell(channel, client_ip):
+    
     channel.send(b'corporate-jumpbox2$')
     command = b""
     while True:
@@ -123,3 +125,17 @@ def client_handle(client, addr, username, password):
         client.close()
             
 # Provisioning SSH Based Honeypot
+def honeypot(address, port, username, password):
+    socks = socket.socket(socket.AF_INET, socket.SOCK_STRAM)
+    socks.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    socks.bind((address, port))
+
+    socks.listen(100)
+    print(f'SSH server is listening on port {port}')
+
+    while True:
+        try:
+            client, addr = socks.accept()
+
+        except Exception as error:
+            print(error)
