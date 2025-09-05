@@ -1,0 +1,9 @@
+Client 127.0.0.1 attempted connection with username: root, password: root
+Command b'ls'executed by 127.0.0.1
+Command b'cat j\t\x7f\x7f\x7f\x7f'executed by 127.0.0.1
+Command b'cat jumpboxx1.conf'executed by 127.0.0.1
+Command b'\x1b[A\x1b[Bcat jumpbox1.conmf\x7f\x7f\x7f\x7ff'executed by 127.0.0.1
+Command b'cat jumpbox1.vomf\x7f\x7f\x7f'executed by 127.0.0.1
+Command b'cat jumpbox1.conmf\x7f'executed by 127.0.0.1
+Command b'cat jumpbox11.\x7f\x7f\x7f'executed by 127.0.0.1
+Command b'cat jumpbox1.conf'executed by 127.0.0.1
