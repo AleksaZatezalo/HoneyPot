@@ -103,9 +103,23 @@ def client_handle(client, addr, username, password):
 
         transport.add_server_key(host_key)
         transport.start_client(server=server)
+        channel = transport.accept(100)
+        if channel is None:
+            print("No channel was opened.")
 
-    except:
-        pass
+        standard_banner = "Welcome to Ubuntu 22.04 LTS (Jammy Jellyfish)!\r\n\r\n"
+        channel.send(standard_banner)
+        emulated_shell(channel, client_ip=client_ip)
+
+    except Exception as error:
+        print(error)
+        print('!!!ERROR!!!')
     finally:
-        pass
+        try:
+            transport.close()
+        except Exception as error:
+            print(error)
+            print('!!!ERROR!!!')
+        client.close()
+            
 # Provisioning SSH Based Honeypot
